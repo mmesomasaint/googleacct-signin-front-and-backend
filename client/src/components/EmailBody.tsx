@@ -16,7 +16,7 @@ function EmailBody({ setPg, setIsLoading }: BodyProps) {
   const { mutate, isError } = useMutation<Response, unknown, EmailFormData>(
     async (data: EmailFormData): Promise<Response> => {
       setIsLoading(true);
-      const response = await fetch('https://example.com/api/emails', {
+      const response = await fetch('/api/email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

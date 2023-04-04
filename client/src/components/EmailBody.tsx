@@ -1,58 +1,58 @@
-import { useEffect, useState, useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { MdError } from 'react-icons/md';
-import {EmailProps, EmailFormData} from '../types/body-props';
+import { useEffect, useState, useRef } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { MdError } from 'react-icons/md'
+import { EmailProps, EmailFormData } from '../types/body-props'
 
 function EmailBody({ setPg, setIsLoading, passEmail }: EmailProps) {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const mutationKey = ['Emails'];
-  const [email, setEmail] = useState('');
-  const isEmpty = email.length === 0;
+  const emailRef = useRef<HTMLInputElement>(null)
+  const mutationKey = ['Emails']
+  const [email, setEmail] = useState('')
+  const isEmpty = email.length === 0
 
   const { mutate, isError } = useMutation<Response, unknown, EmailFormData>(
     async (data: EmailFormData): Promise<Response> => {
-      setIsLoading(true);
+      setIsLoading(true)
       const response = await fetch('/api/email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      });
-      setIsLoading(false);
+      })
+      setIsLoading(false)
 
       if (!response.ok) {
-        throw new Error();
+        throw new Error()
       }
-      return response;
+      return response
     },
     {
       mutationKey,
     }
-  );
+  )
 
   const onChange = (e: React.FormEvent<HTMLInputElement>): void => {
-    setEmail(e.currentTarget.value);
-  };
+    setEmail(e.currentTarget.value)
+  }
 
   const submitEmail: (e: React.SyntheticEvent) => void = async (e) => {
-    e.preventDefault();
-    const result = mutate({ email });
+    e.preventDefault()
+    const result = mutate({ email })
     console.log(result) // debug.
-  };
+  }
 
   useEffect(() => {
-    if (isError) emailRef.current?.focus();
-  }, [isError]);
+    if (isError) emailRef.current?.focus()
+  }, [isError])
 
   return (
     <form onSubmit={submitEmail}>
-      <div className="relative w-full h-fit mb-10">
+      <div className='relative w-full h-fit mb-10'>
         <>
           <input
-            type="text"
+            type='text'
             ref={emailRef}
-            name="email"
+            name='email'
             value={email}
             onChange={onChange}
             className={`text-base font-normal p-4 border border-gray-400 w-full outline-none rounded-md mb-[7px] focus:mb-1 peer focus:outline-none focus:border-[3px] focus:border-blue-700 transition duration-200 ease-in-out ${
@@ -68,37 +68,37 @@ function EmailBody({ setPg, setIsLoading, passEmail }: EmailProps) {
             Email or phone
           </p>
           {isError && (
-            <div className="flex justify-start items-center gap-2 mb-2">
-              <MdError className="text-red-700 text-xl" />
-              <span className="text-sm font-light text-red-700">
+            <div className='flex justify-start items-center gap-2 mb-2'>
+              <MdError className='text-red-700 text-xl' />
+              <span className='text-sm font-light text-red-700'>
                 Couldn&apos;t find your google account
               </span>
             </div>
           )}
-          <a href="#" className="text-base font-medium text-blue-700">
+          <a href='#' className='text-base font-medium text-blue-700'>
             Forgot email?
           </a>
         </>
       </div>
-      <div className="text-base text-gray-700">
+      <div className='text-base text-gray-700'>
         Not your computer? Use Guest mode to sign in privately.
       </div>
-      <a href="#" className="text-base font-medium text-blue-700">
+      <a href='#' className='text-base font-medium text-blue-700'>
         Learn more
       </a>
-      <div className="flex justify-between items-center gap-5 mt-10 mb-6">
-        <a href="#" className="text-base font-medium text-blue-700">
+      <div className='flex justify-between items-center gap-5 mt-10 mb-6'>
+        <a href='#' className='text-base font-medium text-blue-700'>
           Create account
         </a>
         <button
-          type="submit"
-          className="rounded-md bg-blue-700 text-white text-base font-medium leading-[0] py-5 px-6"
+          type='submit'
+          className='rounded-md bg-blue-700 text-white text-base font-medium leading-[0] py-5 px-6'
         >
           Next
         </button>
       </div>
     </form>
-  );
+  )
 }
 
-export default EmailBody;
+export default EmailBody

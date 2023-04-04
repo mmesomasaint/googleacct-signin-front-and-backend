@@ -1,25 +1,22 @@
 type EmailProps = {
-  setPg: () => void;
-  setIsLoading: (isLoading: boolean) => void;
+  setPg: () => void
+  setIsLoading: (isLoading: boolean) => void
   passEmail: (email: string) => void
-};
+}
 
 type EmailFormData = {
-  email: string;
-};
+  email: string
+}
 
 type PasswordProps = {
-  setPg: () => void;
-  setIsLoading: (isLoading: boolean) => void;
+  email: string
+  setPg: () => void
+  setIsLoading: (isLoading: boolean) => void
 }
 
 type PasswordFormData = {
-  password: string;
-};
-
-export type {
-  EmailProps,
-  EmailFormData,
-  PasswordProps,
-  PasswordFormData
+  email: string
+  password: string
 }
+
+export type { EmailProps, EmailFormData, PasswordProps, PasswordFormData }

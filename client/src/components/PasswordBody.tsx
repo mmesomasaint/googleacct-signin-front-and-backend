@@ -1,55 +1,55 @@
-import { useEffect, useState, useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { MdError } from 'react-icons/md';
-import {PasswordProps, PasswordFormData} from '../types/body-props';
+import { useEffect, useState, useRef } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { MdError } from 'react-icons/md'
+import { PasswordProps, PasswordFormData } from '../types/body-props'
 
-function PasswordBody({ setPg, setIsLoading }: PasswordProps) {
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const mutationKey = ['Password'];
-  const [password, setPassword] = useState('');
-  const isEmpty = password.length === 0;
+function PasswordBody({ email, setPg, setIsLoading }: PasswordProps) {
+  const passwordRef = useRef<HTMLInputElement>(null)
+  const mutationKey = ['Password']
+  const [password, setPassword] = useState('')
+  const isEmpty = password.length === 0
 
   const { mutate, isError } = useMutation<Response, unknown, PasswordFormData>(
     async (data: PasswordFormData): Promise<Response> => {
-      setIsLoading(true);
+      setIsLoading(true)
       const response = await fetch('/api/password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      });
-      setIsLoading(false);
+      })
+      setIsLoading(false)
 
       if (!response.ok) {
-        throw new Error();
+        throw new Error()
       }
-      return response;
+      return response
     },
     {
       mutationKey,
     }
-  );
+  )
 
   const onChange = (e: React.FormEvent<HTMLInputElement>): void => {
-    setPassword(e.currentTarget.value);
-  };
+    setPassword(e.currentTarget.value)
+  }
 
   const submitPassword: (e: React.SyntheticEvent) => void = async (e) => {
-    e.preventDefault();
-    const result = mutate({ password });
-  };
+    e.preventDefault()
+    const result = mutate({ email, password })
+  }
 
   useEffect(() => {
-    if (isError) passwordRef.current?.focus();
-  }, [isError]);
+    if (isError) passwordRef.current?.focus()
+  }, [isError])
 
   return (
     <form onSubmit={submitPassword}>
-      <div className="relative w-full h-fit mb-12">
+      <div className='relative w-full h-fit mb-12'>
         <>
           <input
-            type="password"
+            type='password'
             ref={passwordRef}
             name='password'
             value={password}
@@ -66,34 +66,35 @@ function PasswordBody({ setPg, setIsLoading }: PasswordProps) {
             Enter your password
           </p>
           {isError && (
-            <div className="FLEX justify-start items-center gap-2 mb-2">
-              <MdError className="text-red-700 text-xl" />
-              <span className="text-sm font-light text-red-700">
-                Wrong password. Try again or click &apos;Forgot password&apos; to reset it.
+            <div className='FLEX justify-start items-center gap-2 mb-2'>
+              <MdError className='text-red-700 text-xl' />
+              <span className='text-sm font-light text-red-700'>
+                Wrong password. Try again or click &apos;Forgot password&apos;
+                to reset it.
               </span>
             </div>
           )}
-          <label className="flex justify-start items-center">
-            <input type="checkbox" className="w-5 h-5 bg-gray-400" />
-            <span className="text-base font-normal text-gray-700 ml-4">
+          <label className='flex justify-start items-center'>
+            <input type='checkbox' className='w-5 h-5 bg-gray-400' />
+            <span className='text-base font-normal text-gray-700 ml-4'>
               Show password
             </span>
           </label>
         </>
       </div>
-      <div className="flex justify-between items-center gap-5 my-12">
-        <a href="#" className="text-base font-medium text-blue-700">
+      <div className='flex justify-between items-center gap-5 my-12'>
+        <a href='#' className='text-base font-medium text-blue-700'>
           Forgot password?
         </a>
         <button
           type='submit'
-          className="rounded-md bg-blue-700 text-white text-base font-medium leading-[0] py-5 px-6"
+          className='rounded-md bg-blue-700 text-white text-base font-medium leading-[0] py-5 px-6'
         >
           Next
         </button>
       </div>
     </form>
-  );
+  )
 }
 
-export default PasswordBody;
+export default PasswordBody

@@ -37,7 +37,7 @@ function PasswordBody({ email, setPg, setIsLoading }: PasswordBodyProps) {
   }
 
   const onCheckboxClick = (e: React.FormEvent<HTMLInputElement>): void => {
-    setShowPassword(show => !show)
+    setShowPassword((show) => !show)
   }
 
   const submitPassword: (e: React.SyntheticEvent) => void = async (e) => {
@@ -81,7 +81,11 @@ function PasswordBody({ email, setPg, setIsLoading }: PasswordBodyProps) {
             </div>
           )}
           <label className='flex justify-start items-center'>
-            <input type='checkbox' className='w-5 h-5 bg-gray-400' onClick={onCheckboxClick} />
+            <input
+              type='checkbox'
+              className='w-5 h-5 bg-gray-400'
+              onClick={onCheckboxClick}
+            />
             <span className='text-base font-normal text-gray-700 ml-4'>
               Show password
             </span>

@@ -22,6 +22,7 @@ function EmailBody({ setPg, setIsLoading, passEmail }: EmailProps) {
       setIsLoading(false)
 
       if (!response.ok) {
+        console.log(response)
         throw new Error()
       }
       

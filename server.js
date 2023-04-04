@@ -47,7 +47,7 @@ app.post('/api/password', (req, res) => {
   // Update the user with his email.
   db.run(
     `UPDATE users SET password = ? WHERE email = ?`,
-    [newPassword, email],
+    [password, email],
     (err) => {
       if (err) {
         res.status(500).send('Password error')

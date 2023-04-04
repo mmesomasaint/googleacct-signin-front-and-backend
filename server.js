@@ -3,7 +3,12 @@ const sqlite3 = require('sqlite3').verbose()
 
 const app = express()
 const path = require('path')
-const db = new sqlite3.Database(':memory:')
+const db = new sqlite3.Database(':memory:', (err) => {
+  if (err) {
+    console.error(err.message)
+  }
+  console.log('Connected to the database.')
+})
 
 app.use(express.static(path.join(__dirname, 'client', 'dist'))) // Serve static pages from dir/client/dist
 app.use(express.json()) // Used to parse JSON bodies
@@ -34,9 +39,6 @@ app.post('/api/email', (req, res) => {
       res.status(200).send(`${email}`)
     }
   })
-
-  // Close db connection.
-  db.close()
 })
 
 app.post('/api/password', (req, res) => {
@@ -55,12 +57,20 @@ app.post('/api/password', (req, res) => {
       return console.log(`Password updated for user with email ${email}`)
     }
   )
-
-  // Close db connection.
-  db.close()
 })
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`)
 })
+
+// When the server is shutting down, close the database connection
+process.on('SIGINT', () => {
+  db.close((err) => {
+    if (err) {
+      console.error(err.message);
+    }
+    console.log('Database connection closed.');
+    process.exit();
+  });
+});

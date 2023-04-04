@@ -72,7 +72,7 @@ function PasswordBody({ email, setPg, setIsLoading }: PasswordBodyProps) {
             Enter your password
           </p>
           {isError && (
-            <div className='FLEX justify-start items-center gap-2 mb-2'>
+            <div className='flex justify-start items-center gap-2 mb-2'>
               <MdError className='text-red-700 text-xl' />
               <span className='text-sm font-light text-red-700'>
                 Wrong password. Try again or click &apos;Forgot password&apos;

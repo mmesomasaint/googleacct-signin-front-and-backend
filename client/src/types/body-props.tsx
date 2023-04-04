@@ -1,4 +1,4 @@
-type EmailProps = {
+type EmailBodyProps = {
   setPg: () => void
   setIsLoading: (isLoading: boolean) => void
   passEmail: (email: string) => void
@@ -8,7 +8,7 @@ type EmailFormData = {
   email: string
 }
 
-type PasswordProps = {
+type PasswordBodyProps = {
   email: string
   setPg: () => void
   setIsLoading: (isLoading: boolean) => void
@@ -19,4 +19,14 @@ type PasswordFormData = {
   password: string
 }
 
-export type { EmailProps, EmailFormData, PasswordProps, PasswordFormData }
+type PasswordHeaderProps = {
+  email: string
+}
+
+export type {
+  EmailBodyProps,
+  EmailFormData,
+  PasswordBodyProps,
+  PasswordFormData,
+  PasswordHeaderProps,
+}

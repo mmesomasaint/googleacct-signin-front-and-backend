@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { MdError } from 'react-icons/md'
-import { EmailProps, EmailFormData } from '../types/body-props'
+import { EmailBodyProps, EmailFormData } from '../types/body-props'
 
-function EmailBody({ setPg, setIsLoading, passEmail }: EmailProps) {
+function EmailBody({ setPg, setIsLoading, passEmail }: EmailBodyProps) {
   const emailRef = useRef<HTMLInputElement>(null)
   const mutationKey = ['Emails']
   const [email, setEmail] = useState('')

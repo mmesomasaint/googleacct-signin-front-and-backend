@@ -24,7 +24,7 @@ function App() {
             <Loader isLoading={isLoading} />
             <div className='flex flex-col items-center mb-10'>
               <img src={logo} className='w-[4.5rem]' />
-              {email ? <PasswordHeader /> : <EmailHeader />}
+              {email ? <PasswordHeader email={email} /> : <EmailHeader />}
             </div>
             {email ? (
               <PasswordBody

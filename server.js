@@ -28,7 +28,7 @@ app.post('/api/email', (req, res) => {
       res.status(500).send('Failed to insert email into database');
     } else {
       console.log(`Email '${email}' inserted into users table with id ${this.lastID}`);
-      res.status(200).send('Email inserted into database');
+      res.status(200).send(`${email}`);
     }
   });
 

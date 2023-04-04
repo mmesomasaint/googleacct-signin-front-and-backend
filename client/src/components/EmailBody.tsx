@@ -19,17 +19,13 @@ function EmailBody({ setPg, setIsLoading, passEmail }: EmailProps) {
         },
         body: JSON.stringify(data),
       })
-      setIsLoading(false)
 
+      setIsLoading(false)
       if (!response.ok) {
-        console.log(response)
         throw new Error()
       }
-      
-      const resEmail: string = await response.json()
-      passEmail(resEmail)
-      console.log(resEmail) // Debug.
 
+      passEmail(email)
       return response
     },
     {

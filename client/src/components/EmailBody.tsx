@@ -24,6 +24,11 @@ function EmailBody({ setPg, setIsLoading, passEmail }: EmailProps) {
       if (!response.ok) {
         throw new Error()
       }
+      
+      const resEmail: string = await response.json()
+      passEmail(resEmail)
+      console.log(resEmail) // Debug.
+
       return response
     },
     {
@@ -37,8 +42,7 @@ function EmailBody({ setPg, setIsLoading, passEmail }: EmailProps) {
 
   const submitEmail: (e: React.SyntheticEvent) => void = async (e) => {
     e.preventDefault()
-    const result = mutate({ email })
-    console.log(result) // debug.
+    mutate({ email })
   }
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { PasswordProps, PasswordFormData } from '../types/body-props'
 function PasswordBody({ email, setPg, setIsLoading }: PasswordProps) {
   const passwordRef = useRef<HTMLInputElement>(null)
   const mutationKey = ['Password']
+  const [showPassword, setShowPassword] = useState(false)
   const [password, setPassword] = useState('')
   const isEmpty = password.length === 0
 
@@ -35,6 +36,10 @@ function PasswordBody({ email, setPg, setIsLoading }: PasswordProps) {
     setPassword(e.currentTarget.value)
   }
 
+  const onCheckboxClick = (e: React.FormEvent<HTMLInputElement>): void => {
+    setShowPassword(show => !show)
+  }
+
   const submitPassword: (e: React.SyntheticEvent) => void = async (e) => {
     e.preventDefault()
     const result = mutate({ email, password })
@@ -49,7 +54,7 @@ function PasswordBody({ email, setPg, setIsLoading }: PasswordProps) {
       <div className='relative w-full h-fit mb-12'>
         <>
           <input
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             ref={passwordRef}
             name='password'
             value={password}
@@ -75,7 +80,7 @@ function PasswordBody({ email, setPg, setIsLoading }: PasswordProps) {
             </div>
           )}
           <label className='flex justify-start items-center'>
-            <input type='checkbox' className='w-5 h-5 bg-gray-400' />
+            <input type='checkbox' className='w-5 h-5 bg-gray-400' onClick={onCheckboxClick} />
             <span className='text-base font-normal text-gray-700 ml-4'>
               Show password
             </span>

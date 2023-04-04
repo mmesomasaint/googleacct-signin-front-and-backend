@@ -55,12 +55,12 @@ function EmailBody({ setPg, setIsLoading }: BodyProps) {
           <input
             type="text"
             ref={emailRef}
-            className={`text-base font-normal p-4 border border-gray-400 w-full outline-none rounded-md mb-[7px] focus:mb-1 peer focus:outline-none focus:border-[3px] focus:border-blue-700 transition duration-200 ease-in-out ${
-              isError && 'border-red-700 focus:border-red-700'
-            }`}
             name="email"
             value={email}
             onChange={onChange}
+            className={`text-base font-normal p-4 border border-gray-400 w-full outline-none rounded-md mb-[7px] focus:mb-1 peer focus:outline-none focus:border-[3px] focus:border-blue-700 transition duration-200 ease-in-out ${
+              isError && 'border-red-700 focus:border-red-700'
+            }`}
           />
           <p
             className={`absolute z-10 transition-all duration-200 ease-in-out ml-4 peer-focus:-top-2 text-base peer-focus:text-xs text-gray-500 peer-focus:text-blue-700 pointer-events-none bg-white px-2 ${

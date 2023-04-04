@@ -64,9 +64,10 @@ function PasswordBody({ email, setPg, setIsLoading }: PasswordProps) {
             }`}
           />
           <p
-            className={`absolute z-10 transition-all duration-200 ease-in-out top-4 peer-focus:-top-2 ml-4 text-base peer-focus:text-xs text-gray-500 peer-focus:text-blue-700 pointer-events-none bg-white px-2 ${
-              isError && 'text-red-700 peer-focus:text-red-700 -top-2 text-xs'
-            }`}
+            className={`absolute z-10 transition-all duration-200 ease-in-out ml-4 peer-focus:-top-2 text-base peer-focus:text-xs text-gray-500 peer-focus:text-blue-700 pointer-events-none bg-white px-2 ${
+              isError &&
+              'text-red-700 peer-focus:text-red-700 peer-focus:-top-2'
+            } ${!isEmpty ? '-top-2 text-xs' : 'top-4 text-base'}`}
           >
             Enter your password
           </p>

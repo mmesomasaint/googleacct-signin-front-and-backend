@@ -12,7 +12,7 @@ import Loader from './components/Loader';
 function App() {
   const queryClient = new QueryClient();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [emailExists, setEmailExists] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('');
 
   const setPage: () => void = () => {};
 
@@ -24,12 +24,12 @@ function App() {
             <Loader isLoading={isLoading} />
             <div className="flex flex-col items-center mb-10">
               <img src={logo} className="w-[4.5rem]" />
-              {emailExists ? <PasswordHeader /> : <EmailHeader />}
+              {email ? <PasswordHeader /> : <EmailHeader />}
             </div>
-            {emailExists ? (
+            {email ? (
               <PasswordBody setPg={setPage} setIsLoading={setIsLoading} />
             ) : (
-              <EmailBody setPg={setPage} setIsLoading={setIsLoading} />
+              <EmailBody setPg={setPage} setIsLoading={setIsLoading} passEmail={setEmail} />
             )}
           </div>
         </main>

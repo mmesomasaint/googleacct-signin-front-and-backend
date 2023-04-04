@@ -1,13 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { MdError } from 'react-icons/md';
-import BodyProps from '../types/body-props';
+import {PasswordProps, PasswordFormData} from '../types/body-props';
 
-type PasswordFormData = {
-  password: string;
-};
-
-function PasswordBody({ setPg, setIsLoading }: BodyProps) {
+function PasswordBody({ setPg, setIsLoading }: PasswordProps) {
   const passwordRef = useRef<HTMLInputElement>(null);
   const mutationKey = ['Password'];
   const [password, setPassword] = useState('');

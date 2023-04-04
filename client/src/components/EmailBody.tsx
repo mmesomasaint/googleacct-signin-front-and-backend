@@ -1,13 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { MdError } from 'react-icons/md';
-import BodyProps from '../types/body-props';
+import {EmailProps, EmailFormData} from '../types/body-props';
 
-type EmailFormData = {
-  email: string;
-};
-
-function EmailBody({ setPg, setIsLoading }: BodyProps) {
+function EmailBody({ setPg, setIsLoading, passEmail }: EmailProps) {
   const emailRef = useRef<HTMLInputElement>(null);
   const mutationKey = ['Emails'];
   const [email, setEmail] = useState('');
@@ -42,6 +38,7 @@ function EmailBody({ setPg, setIsLoading }: BodyProps) {
   const submitEmail: (e: React.SyntheticEvent) => void = async (e) => {
     e.preventDefault();
     const result = mutate({ email });
+    console.log(result) // debug.
   };
 
   useEffect(() => {

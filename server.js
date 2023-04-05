@@ -68,9 +68,9 @@ app.listen(port, () => {
 process.on('SIGINT', () => {
   db.close((err) => {
     if (err) {
-      console.error(err.message);
+      console.error(err.message)
     }
-    console.log('Database connection closed.');
-    process.exit();
-  });
-});
+    console.log('Database connection closed.')
+    process.exit()
+  })
+})

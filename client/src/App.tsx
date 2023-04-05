@@ -28,11 +28,6 @@ function App() {
       )
       return
     }
-
-    // Else remain at the prev section.
-    navigate(
-      `/AccountChooser/identifier?checkedDomains=youtube&dsh=-M53-V4WAk3pav`
-    )
   }
 
   return (

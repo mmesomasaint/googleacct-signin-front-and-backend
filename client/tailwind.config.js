@@ -5,6 +5,8 @@ export default {
     extend: {
       animation: {
         load: 'load 2s infinite',
+        'slide-in-right': 'slide-in-right 0.5s ease-in-out',
+        'slide-in-left': 'slide-in-left 0.5s ease-in-out',
       },
       keyframes: {
         load: {
@@ -21,9 +23,24 @@ export default {
             width: '100%',
           },
         },
+        'slide-in-right': {
+          '0%': {
+            transform: 'translateX(100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
+        'slide-in-left': {
+          '0%': {
+            transform: 'translateX(-100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
       },
     },
   },
   plugins: [],
-};
-
+}

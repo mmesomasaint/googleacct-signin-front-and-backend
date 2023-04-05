@@ -40,6 +40,7 @@ function EmailBody({ setPg, setIsLoading, passEmail }: EmailBodyProps) {
   const submitEmail: (e: React.SyntheticEvent) => void = async (e) => {
     e.preventDefault()
     mutate({ email })
+    setPg() // Reset browser address
   }
 
   useEffect(() => {

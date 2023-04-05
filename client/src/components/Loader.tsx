@@ -7,9 +7,11 @@ function Loader({ isLoading }: LoadProps) {
     <div
       className={`${
         isLoading ? 'block' : 'hidden'
-      } absolute w-full h-1 top-0 left-0 z-10 bg-gray-300`}
+      } absolute bg-stone-100 bg-opacity-60 inset-0 z-10`}
     >
-      <div className='w-[10%] h-full bg-blue-700 relative overflow-hidden animate-load' />
+      <div className='w-full h-1 bg-gray-300'>
+        <div className='w-[10%] h-full bg-blue-700 relative overflow-hidden animate-load' />
+      </div>
     </div>
   )
 }

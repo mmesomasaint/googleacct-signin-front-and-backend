@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { MdError } from 'react-icons/md'
 import { PasswordBodyProps, PasswordFormData } from '../types/body-props'
 
-function PasswordBody({ email, setPg, setIsLoading }: PasswordBodyProps) {
+function PasswordBody({ email, setIsLoading }: PasswordBodyProps) {
   const passwordRef = useRef<HTMLInputElement>(null)
   const mutationKey = ['Password']
   const [showPassword, setShowPassword] = useState(false)

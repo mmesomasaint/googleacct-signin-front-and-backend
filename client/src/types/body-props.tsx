@@ -1,5 +1,4 @@
 type EmailBodyProps = {
-  setPg: () => void
   setIsLoading: (isLoading: boolean) => void
   passEmail: (email: string) => void
 }
@@ -10,7 +9,6 @@ type EmailFormData = {
 
 type PasswordBodyProps = {
   email: string
-  setPg: () => void
   setIsLoading: (isLoading: boolean) => void
 }
 

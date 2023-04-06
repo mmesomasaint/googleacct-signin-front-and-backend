@@ -12,6 +12,7 @@ function App() {
   const queryClient = new QueryClient()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -36,7 +37,7 @@ function App() {
                   email ? '-translate-x-full' : 'translate-x-0'
                 } w-full flex-shrink-0 transition-transform ease-in-out duration-500`}
               >
-                <PasswordBody email={email} setIsLoading={setIsLoading} />
+                <PasswordBody email={email} setIsLoading={setIsLoading} passPassword={setPassword} />
               </div>
             </div>
           </div>

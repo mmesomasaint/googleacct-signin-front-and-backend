@@ -4,7 +4,8 @@
   "description": "Google sign in form. Containing both frontend and backend code.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "postinstall": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",

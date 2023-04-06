@@ -16,6 +16,7 @@ function EmailBody({ setIsLoading, passEmail }: EmailBodyProps) {
       // Vert the email address
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(data.email)) {
+        setIsLoading(false)
         throw new Error()
       }
 

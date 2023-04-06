@@ -12,6 +12,13 @@ function EmailBody({ setIsLoading, passEmail }: EmailBodyProps) {
   const { mutate, isError } = useMutation<Response, unknown, EmailFormData>(
     async (data: EmailFormData): Promise<Response> => {
       setIsLoading(true)
+
+      // Vert the email address
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(data.email)) {
+        throw new Error()
+      }
+
       const response = await fetch('/api/email', {
         method: 'POST',
         headers: {

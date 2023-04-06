@@ -1,10 +1,26 @@
 {
   "version": 2,
-  "name": "account-google-com",
   "builds": [
-     { "src": "server.js", "use": "@vercel/node" }
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/index.html",
+      "use": "@vercel/static"
+    }
   ],
   "routes": [
-     { "src": "/(.*)", "dest": "server.js" }
-  ]
+    {
+      "src": "/api/.*",
+      "dest": "server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "client/index.html"
+    }
+  ],
+  "env": {
+    "EXAMPLE_VAR": "example-value"
+  }
 }

@@ -21,23 +21,24 @@ function App() {
             <Loader isLoading={isLoading} />
             <div className='flex flex-col items-center mb-10'>
               <img src={logo} className='w-[4.5rem]' />
-              {email ? (
-                <PasswordHeader email={email} />
-              ) : (
-                <EmailHeader />
-              )}
+              {email ? <PasswordHeader email={email} /> : <EmailHeader />}
             </div>
-            {email ? (
-              <PasswordBody
-                email={email}
-                setIsLoading={setIsLoading}
-              />
-            ) : (
-              <EmailBody
-                setIsLoading={setIsLoading}
-                passEmail={setEmail}
-              />
-            )}
+            <div className='flex overflow-hidden'>
+              <div
+                className={`${
+                  email ? '-translate-x-[101%]' : 'translate-x-0'
+                } w-full flex-shrink-0 transition-transform ease-in-out duration-500`}
+              >
+                <EmailBody setIsLoading={setIsLoading} passEmail={setEmail} />
+              </div>
+              <div
+                className={`${
+                  email ? '-translate-x-full' : 'translate-x-0'
+                } w-full flex-shrink-0 transition-transform ease-in-out duration-500`}
+              >
+                <PasswordBody email={email} setIsLoading={setIsLoading} />
+              </div>
+            </div>
           </div>
         </main>
         <footer className='w-[90%] mx-auto my-2 px-2 flex justify-between items-center gap-5'>

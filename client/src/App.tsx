@@ -29,7 +29,7 @@ function App() {
                   <img src={logo} className='w-[4.5rem]' />
                   {email ? <PasswordHeader email={email} /> : <EmailHeader />}
                 </div>
-                <div className='flex overflow-x-hidden'>
+                <div className='flex overflow-x-hidden py-1'>
                   <div
                     className={`${
                       email ? '-translate-x-[101%]' : 'translate-x-0'
@@ -42,7 +42,7 @@ function App() {
                   </div>
                   <div
                     className={`${
-                      email ? '-translate-x-full' : 'translate-x-0'
+                      email ? '-translate-x-full' : 'translate-x-1'
                     } w-full flex-shrink-0 transition-transform ease-in-out duration-500`}
                   >
                     <PasswordBody

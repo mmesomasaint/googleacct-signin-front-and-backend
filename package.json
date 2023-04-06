@@ -4,7 +4,7 @@
   "description": "Google sign in form. Containing both frontend and backend code.",
   "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "postinstall": "cd client && npm install && npm run build"
   },
   "repository": {

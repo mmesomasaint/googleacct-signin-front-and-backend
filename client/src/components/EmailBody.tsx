@@ -51,7 +51,8 @@ function EmailBody({ setIsLoading, passEmail }: EmailBodyProps) {
   }
 
   useEffect(() => {
-    if (isError) emailRef.current?.focus()
+    emailRef.current?.focus() // Come into focus on render.
+    if (isError) emailRef.current?.focus() // come into focus on error.
   }, [isError])
 
   return (

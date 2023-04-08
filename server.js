@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3').verbose()
 
 const app = express()
 const path = require('path')
-const db = new sqlite3.Database(':memory:', (err) => {
+const db = new sqlite3.Database('/users.db', (err) => {
   if (err) {
     console.error(err.message)
   }
@@ -13,7 +13,7 @@ const db = new sqlite3.Database(':memory:', (err) => {
 app.use(express.static(path.join(__dirname, 'client', 'dist'))) // Serve static pages from dir/client/dist
 app.use(express.json()) // Used to parse JSON bodies
 db.serialize(() => {
-  db.run(`CREATE TABLE users (
+  db.run(`CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT NOT NULL,
     password TEXT

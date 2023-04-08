@@ -33,7 +33,7 @@ function EmailBody({ setIsLoading, passEmail }: EmailBodyProps) {
         throw new Error()
       }
 
-      passEmail(email)
+      passEmail(data.email)
       return response
     },
     {

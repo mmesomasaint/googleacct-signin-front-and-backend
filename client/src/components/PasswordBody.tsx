@@ -52,7 +52,6 @@ function PasswordBody({
   }
 
   useEffect(() => {
-    passwordRef.current?.focus() // come into focus on render.
     if (isError) passwordRef.current?.focus() // come into focus on error.
   }, [isError])
 

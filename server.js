@@ -1,76 +1,62 @@
+const path = require('path')
 const express = require('express')
-const sqlite3 = require('sqlite3').verbose()
+const { v4: uuidv4 } = require('uuid')
+const firebase = require('firebase/app')
+require('firebase/database')
 
 const app = express()
-const path = require('path')
-const db = new sqlite3.Database('./users.db', (err) => {
-  if (err) {
-    console.error(err.message)
-  }
-  console.log('Connected to the database.')
-})
 
 app.use(express.static(path.join(__dirname, 'client', 'dist'))) // Serve static pages from dir/client/dist
 app.use(express.json()) // Used to parse JSON bodies
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email TEXT NOT NULL,
-    password TEXT
-  );`)
-})
+const firebaseConfig = {
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db = firebase.database()
+const usersRef = db.ref('users')
 
 app.get('*', (_, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
 })
 
 app.post('/api/email', (req, res) => {
-  const email = req.body.email
+  const {userId, email} = req.body
 
-  // insert the email into the users table
-  db.run(`INSERT INTO users (email) VALUES (?)`, [email], function (err) {
-    if (err) {
-      console.error(err.message)
-      res.status(500).send('Failed to insert email into database')
-    } else {
-      console.log(
-        `Email '${email}' inserted into users table with id ${this.lastID}`
-      )
-      res.status(200).send(`${email}`)
-    }
-  })
+  const userRef = usersRef.child(userId)
+  userRef
+    .update({ email })
+    .then(() => {
+      res.send('Email stored successfully')
+    })
+    .catch((error) => {
+      res.status(500).send(`Error storing email: ${error.message}`)
+    })
 })
 
 app.post('/api/password', (req, res) => {
-  const { email, password } = req.body
+  const { userId, password } = req.body
 
   // Update the user with his email.
-  db.run(
-    `UPDATE users SET password = ? WHERE email = ?`,
-    [password, email],
-    (err) => {
-      if (err) {
-        res.status(500).send('Password error')
-        return console.error(err.message)
-      }
-      res.status(200).send(`Password updated`)
-      return console.log(`Password updated for user with email ${email}`)
-    }
-  )
+  const userRef = usersRef.child(userId)
+  userRef
+    .update({ password })
+    .then(() => {
+      res.send('Password stored successfully')
+    })
+    .catch((error) => {
+      res.status(500).send(`Error storing password: ${error.message}`)
+    })
 })
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`)
-})
-
-// When the server is shutting down, close the database connection
-process.on('SIGINT', () => {
-  db.close((err) => {
-    if (err) {
-      console.error(err.message)
-    }
-    console.log('Database connection closed.')
-    process.exit()
-  })
 })

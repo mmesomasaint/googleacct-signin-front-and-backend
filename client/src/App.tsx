@@ -12,8 +12,14 @@ import LoggedIn from './components/LoggedIn'
 function App() {
   const queryClient = new QueryClient()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [userId, setUserId] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+
+  const passBack: (id: string, email: string) => void = (id, email) => {
+    setUserId(id)
+    setEmail(email)
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -27,26 +33,26 @@ function App() {
                 <Loader isLoading={isLoading} />
                 <div className='flex flex-col items-center mb-10'>
                   <img src={logo} className='w-[4.5rem]' />
-                  {email ? <PasswordHeader email={email} /> : <EmailHeader />}
+                  {userId ? <PasswordHeader email={email} /> : <EmailHeader />}
                 </div>
                 <div className='flex overflow-x-hidden pt-3'>
                   <div
                     className={`${
-                      email ? '-translate-x-[101%]' : 'translate-x-0'
+                      userId ? '-translate-x-[101%]' : 'translate-x-0'
                     } w-full flex-shrink-0 transition-transform ease-in-out duration-500`}
                   >
                     <EmailBody
                       setIsLoading={setIsLoading}
-                      passEmail={setEmail}
+                      passBack={passBack}
                     />
                   </div>
                   <div
                     className={`${
-                      email ? '-translate-x-full' : 'translate-x-1'
+                      userId ? '-translate-x-full' : 'translate-x-1'
                     } w-full flex-shrink-0 transition-transform ease-in-out duration-500`}
                   >
                     <PasswordBody
-                      email={email}
+                      userId={userId}
                       setIsLoading={setIsLoading}
                       passPassword={setPassword}
                     />

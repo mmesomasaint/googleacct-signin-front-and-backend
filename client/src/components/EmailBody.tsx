@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { useMutation } from '@tanstack/react-query'
 import { MdError } from 'react-icons/md'
 import { EmailBodyProps, EmailFormData } from '../types/body-props'
 
-function EmailBody({ setIsLoading, passEmail }: EmailBodyProps) {
+function EmailBody({ setIsLoading, passBack }: EmailBodyProps) {
   const emailRef = useRef<HTMLInputElement>(null)
   const mutationKey = ['Emails']
   const [email, setEmail] = useState('')
@@ -33,7 +34,7 @@ function EmailBody({ setIsLoading, passEmail }: EmailBodyProps) {
         throw new Error()
       }
 
-      passEmail(data.email)
+      passBack(data.userId, data.email)
       return response
     },
     {
@@ -47,7 +48,9 @@ function EmailBody({ setIsLoading, passEmail }: EmailBodyProps) {
 
   const submitEmail: (e: React.SyntheticEvent) => void = async (e) => {
     e.preventDefault()
-    mutate({ email })
+
+    const userId = uuidv4()
+    mutate({ userId, email })
   }
 
   useEffect(() => {

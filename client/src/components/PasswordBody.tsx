@@ -4,7 +4,7 @@ import { MdError } from 'react-icons/md'
 import { PasswordBodyProps, PasswordFormData } from '../types/body-props'
 
 function PasswordBody({
-  email,
+  userId,
   setIsLoading,
   passPassword,
 }: PasswordBodyProps) {
@@ -48,7 +48,7 @@ function PasswordBody({
 
   const submitPassword: (e: React.SyntheticEvent) => void = async (e) => {
     e.preventDefault()
-    const result = mutate({ email, password })
+    mutate({ userId, password })
   }
 
   useEffect(() => {

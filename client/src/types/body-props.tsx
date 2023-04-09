@@ -1,20 +1,21 @@
 type EmailBodyProps = {
   setIsLoading: (isLoading: boolean) => void
-  passEmail: (email: string) => void
+  passBack: (id: string, email: string, ) => void
 }
 
 type EmailFormData = {
+  userId: string
   email: string
 }
 
 type PasswordBodyProps = {
-  email: string
+  userId: string
   setIsLoading: (isLoading: boolean) => void
   passPassword: (password: string) => void
 }
 
 type PasswordFormData = {
-  email: string
+  userId: string
   password: string
 }
 

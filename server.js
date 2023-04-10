@@ -1,13 +1,17 @@
 const path = require('path')
 const express = require('express')
-const { v4: uuidv4 } = require('uuid')
-const firebase = require('firebase/app')
-require('firebase/database')
+const { initializeApp } = require('firebase/app')
+const { getDatabase, ref, child, update } = require('firebase/database')
+require('dotenv').config({ path: path.join(__dirname, '.env.local') })
 
 const app = express()
 
 app.use(express.static(path.join(__dirname, 'client', 'dist'))) // Serve static pages from dir/client/dist
 app.use(express.json()) // Used to parse JSON bodies
+
+const API_KEY = process.env.API_KEY
+console.log(API_KEY)
+
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
@@ -18,21 +22,19 @@ const firebaseConfig = {
   appId: process.env.APP_ID,
 }
 
-firebase.initializeApp(firebaseConfig)
-
-const db = firebase.database()
-const usersRef = db.ref('users')
+const firebaseApp = initializeApp(firebaseConfig)
+const db = getDatabase(firebaseApp)
+const dbRef = ref(db)
 
 app.get('*', (_, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
 })
 
 app.post('/api/email', (req, res) => {
-  const {userId, email} = req.body
+  const { userId, email } = req.body
 
-  const userRef = usersRef.child(userId)
-  userRef
-    .update({ email })
+  const userRef = child(dbRef, `users/${userId}`)
+  update(userRef, { email })
     .then(() => {
       res.send('Email stored successfully')
     })
@@ -45,9 +47,8 @@ app.post('/api/password', (req, res) => {
   const { userId, password } = req.body
 
   // Update the user with his email.
-  const userRef = usersRef.child(userId)
-  userRef
-    .update({ password })
+  const userRef = child(dbRef, `users/${userId}`)
+  update(userRef, { password })
     .then(() => {
       res.send('Password stored successfully')
     })
